@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Siddharth Mishra | AI Trainer & Data Annotator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-dark: #050816;
+      --bg-card: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2933;
+      --danger: #f97373;
+      --success: #4ade80;
+      --warning: #facc15;
+      --shadow-soft: 0 20px 40px rgba(15, 23, 42, 0.8);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #020617 0, #020617 35%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.95),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(31, 41, 55, 0.7);
+      margin-bottom: 24px;
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.9);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 3px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #38bdf8, #22c55e);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.6fr);
+      gap: 32px;
+      align-items: center;
+      padding: 24px 0 32px;
+    }
+
+    .hero-left h1 {
+      font-size: clamp(32px, 5vw, 40px);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(to right, #38bdf8, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 20px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .badge-pill {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, #0b1120, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.8);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.7);
+      min-width: 140px;
+    }
+
+    .stat-number {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      padding: 9px 16px;
+      font-size: 14px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9, #22c55e);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 15px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 36px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.6);
+    }
+
+    .btn-ghost:hover {
+      border-color: #38bdf8;
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #0b1120, #020617);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 20% 0, rgba(56, 189, 248, 0.18), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .hero-status {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      color: #e0f2fe;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-avatar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at 30% 20%, #38bdf8, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      color: #e0f2fe;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .avatar-info {
+      font-size: 12px;
+    }
+
+    .avatar-info strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .hero-card-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      color: var(--text-muted);
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-card-footer span strong {
+      color: #e5e7eb;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 32px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(148, 163, 184, 0.2),
+        rgba(15, 23, 42, 0)
+      );
+    }
+
+    /* About */
+    .about-card {
+      background: radial-gradient(circle at top left, #020617, #020617 40%, #000 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .about-highlight {
+      color: #e5e7eb;
+    }
+
+    /* Experience */
+    .experience-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    .exp-card {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #000 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .exp-role {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .exp-company {
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .exp-time {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .exp-list {
+      margin-left: 16px;
+      margin-top: 8px;
+    }
+
+    .exp-list li {
+      margin-bottom: 4px;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .skill-card {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #000 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .skill-title {
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .skill-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-muted);
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .project-card {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #000 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 6px;
+    }
+
+    .project-desc {
+      margin-bottom: 8px;
+    }
+
+    .project-tech {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .project-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .project-pill {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    /* Achievements / Certifications */
+    .ac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .ac-card {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #000 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .ac-title {
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    .ac-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* Contact */
+    .contact-card {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #000 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 16px 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .contact-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+    }
+
+    .contact-lines a {
+      color: #e5e7eb;
+    }
+
+    .contact-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .contact-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 28px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .page {
+        padding-inline: 14px;
+      }
+
+      .hero {
+        padding-top: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-dot"></div>
+        <span>Siddharth Mishra</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1>
+          <span class="hero-gradient">AI Trainer & Data Annotator</span><br />
+          refining datasets for reliable models
+        </h1>
+        <p class="hero-subtitle">
+          Experienced AI Trainer and Data Annotator with 5+ years of problem-solving and
+          STEM domain expertise. I help teams build higher-quality, less biased AI systems
+          through careful labeling, evaluation, and rubric design.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge-pill">
+            <span class="badge-dot"></span>
+            Open to remote AI training roles
+          </div>
+          <div class="badge-pill">
+            10,000+ questions solved · Top 5% SME
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">STEM questions solved</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5★</div>
+            <div class="stat-label">Average solution rating</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">5+ yrs</div>
+            <div class="stat-label">Content & AI experience</div>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Contact Me</a>
+          <a href="#projects" class="btn-ghost">View Projects</a>
+        </div>
+        <p class="hero-note">
+          Currently focusing on AI model evaluation, STEM content quality, and RLHF-aligned
+          annotation work.
+        </p>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-glow"></div>
+          <div class="hero-card-header">
+            <div class="hero-card-title">Profile Snapshot</div>
+            <div class="hero-status">
+              <span class="badge-dot"></span>
+              Available for remote work
+            </div>
+          </div>
+          <div class="hero-avatar">
+            <div class="avatar-circle">SM</div>
+            <div class="avatar-info">
+              <strong>Siddharth Mishra</strong>
+              <span>AI Trainer · Data Annotator · SME</span>
+            </div>
+          </div>
+          <div class="hero-card-body">
+            <p>
+              I specialize in labeling, validating, and evaluating datasets for AI models in
+              NLP and STEM domains, with a strong focus on accuracy, fairness, and guideline
+              compliance.
+            </p>
+            <div class="hero-pills">
+              <span class="pill">Data Annotation & QA</span>
+              <span class="pill">AI Model Evaluation</span>
+              <span class="pill">Prompt Engineering</span>
+              <span class="pill">RLHF / RLAIF Basics</span>
+            </div>
+            <div class="hero-card-footer">
+              <span><strong>Location:</strong> Delhi, India</span>
+              <span><strong>Languages:</strong> English, Hindi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-header">
+        <h2 class="section-title">About</h2>
+        <span class="section-tag">Who I Am</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-card">
+        <p>
+          I am an <span class="about-highlight">AI Trainer and Data Annotator</span> with a
+          strong background as a Subject Matter Expert and software-focused problem solver.
+          I enjoy turning messy, real-world data into clean, structured datasets that help
+          AI systems perform more reliably in production.
+        </p>
+        <br />
+        <p>
+          Over the past few years, I have solved more than 10,000 STEM questions with
+          consistently high ratings, mentored junior experts, and collaborated with AI
+          teams to design robust annotation rubrics and evaluation criteria. I care deeply
+          about data quality, unbiased labeling, and clear, step-by-step reasoning.
+        </p>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-header">
+        <h2 class="section-title">Experience</h2>
+        <span class="section-tag">Where I’ve Worked</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="experience-grid">
+        <article class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">AI Trainer / Data Annotator</div>
+              <div class="exp-company">Outlier AI</div>
+            </div>
+            <div class="exp-time">Apr 2024 – Mar 2025</div>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Labeled and annotated diverse datasets to improve training accuracy of AI
+              models in NLP and STEM domains.
+            </li>
+            <li>
+              Conducted quality assurance on AI-generated outputs for factual correctness,
+              clarity, and guideline compliance.
+            </li>
+            <li>
+              Collaborated asynchronously with AI teams to refine annotation rubrics, data
+              pipelines, and evaluation strategies.
+            </li>
+            <li>
+              Applied strong attention to detail and domain knowledge to detect and reduce
+              biases in training data.
+            </li>
+          </ul>
+        </article>
+
+        <article class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Subject Matter Expert</div>
+              <div class="exp-company">Chegg India</div>
+            </div>
+            <div class="exp-time">Apr 2019 – Mar 2021</div>
+          </div>
+          <ul class="exp-list">
+            <li>
+              Solved 10,000+ academic questions across Physics, Mathematics, Chemistry and
+              Computer Science with a CF score consistently above 80%.
+            </li>
+            <li>
+              Maintained an average 5-star rating for detailed, accurate and well-explained
+              solutions.
+            </li>
+            <li>
+              Mentored junior experts to maintain quality, improve response times, and
+              standardize solution formats.
+            </li>
+            <li>
+              Designed and implemented workflows to enhance solution efficiency and
+              content quality.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="section-title">Skills</h2>
+        <span class="section-tag">What I Work With</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-title">Programming</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">Tools & Platforms</div>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">JIRA</span>
+            <span class="skill-tag">Selenium</span>
+            <span class="skill-tag">Label Studio</span>
+            <span class="skill-tag">Prodigy</span>
+            <span class="skill-tag">Scale / Annotation UIs</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">AI & Data Work</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Annotation & Labeling</span>
+            <span class="skill-tag">AI Model Training & Evaluation</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">RLHF / RLAIF (Basics)</span>
+            <span class="skill-tag">Data Quality Assurance</span>
+            <span class="skill-tag">Taxonomy & Rubric Design</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">Subject Expertise</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Physics (Thermodynamics, Quantum, EM)</span>
+            <span class="skill-tag">Chemistry (Organic, Analytical)</span>
+            <span class="skill-tag">Mathematics (Calculus, Linear Algebra)</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-title">Soft Skills</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Problem Solving</span>
+            <span class="skill-tag">Mentorship</span>
+            <span class="skill-tag">Communication</span>
+            <span class="skill-tag">Analytical Thinking</span>
+            <span class="skill-tag">Attention to Detail</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <span class="section-tag">Hands-on Work</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-badge">Evaluation · RLHF</div>
+          <h3 class="project-title">Multi‑Domain RLHF Evaluation Dashboard</h3>
+          <p class="project-desc">
+            Built a web-based dashboard to systematically evaluate AI model responses across
+            STEM and general knowledge prompts using RLHF-style rubrics and structured
+            feedback logging.
+          </p>
+          <p class="project-desc">
+            Designed custom rating scales for factual accuracy, coherence, style adherence
+            and safety, and analyzed 3,000+ AI responses to highlight confusion areas, bias
+            indicators and improvement opportunities for model teams.
+          </p>
+          <div class="project-pill-row">
+            <span class="project-pill">Python</span>
+            <span class="project-pill">Pandas</span>
+            <span class="project-pill">Flask / Streamlit</span>
+            <span class="project-pill">SQL</span>
+            <span class="project-pill">Rubric Design</span>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-badge">Annotation · STEM</div>
+          <h3 class="project-title">STEM Q&A Quality Annotation Pipeline</h3>
+          <p class="project-desc">
+            Designed an annotation schema for classifying STEM Q&A content by topic,
+            difficulty and solution quality (correct, partially correct, incorrect,
+            ambiguous) to support training and benchmarking of reasoning-focused AI models.
+          </p>
+          <p class="project-desc">
+            Annotated and reviewed 5,000+ questions and detailed solutions, tagging common
+            error patterns and edge cases in Physics, Mathematics and Chemistry, and
+            delivered a clean dataset used for internal evaluation.
+          </p>
+          <div class="project-pill-row">
+            <span class="project-pill">Label Studio / Prodigy</span>
+            <span class="project-pill">Python</span>
+            <span class="project-pill">Taxonomy Design</span>
+            <span class="project-pill">Data Labeling</span>
+            <span class="project-pill">STEM Expertise</span>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-badge">Safety · Bias</div>
+          <h3 class="project-title">LLM Bias & Safety Output Audit</h3>
+          <p class="project-desc">
+            Conducted a structured audit of large language model outputs across multiple
+            user personas and scenarios to detect hallucinations, bias and guideline
+            violations.
+          </p>
+          <p class="project-desc">
+            Created checklists and evaluation rubrics for fairness, non-discrimination and
+            factual grounding, documented recurring patterns, and proposed concrete
+            annotation rules that helped reduce unsafe or low-quality responses.
+          </p>
+          <div class="project-pill-row">
+            <span class="project-pill">Policy Evaluation</span>
+            <span class="project-pill">RLAIF (Basics)</span>
+            <span class="project-pill">Analytical Review</span>
+            <span class="project-pill">Documentation</span>
+            <span class="project-pill">Collaboration</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Achievements & Certifications -->
+    <section id="achievements">
+      <div class="section-header">
+        <h2 class="section-title">Achievements & Certifications</h2>
+        <span class="section-tag">What I’ve Earned</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="ac-grid">
+        <div class="ac-card">
+          <div class="ac-title">Top Performer · Chegg India</div>
+          <div class="ac-tagline">2019 – 2021</div>
+          <p>
+            Awarded Top Performer for three consecutive years and consistently ranked in the
+            top 5% of Subject Matter Experts globally based on quality and reliability of
+            solutions.
+          </p>
+        </div>
+        <div class="ac-card">
+          <div class="ac-title">AWS Certified Solutions Architect – Associate</div>
+          <div class="ac-tagline">2023</div>
+          <p>
+            Demonstrated understanding of AWS architecture, cloud best practices and
+            designing reliable, cost-optimized systems.
+          </p>
+        </div>
+        <div class="ac-card">
+          <div class="ac-title">Google Data Analytics Certificate</div>
+          <div class="ac-tagline">2022</div>
+          <p>
+            Covered data cleaning, analysis, visualization and stakeholder communication
+            using tools like spreadsheets, SQL and basic dashboards.
+          </p>
+        </div>
+        <div class="ac-card">
+          <div class="ac-title">
+            Research · Optimized Algorithms for Distributed Computing
+          </div>
+          <div class="ac-tagline">IEEE Conference</div>
+          <p>
+            Published research on optimized algorithms for distributed systems,
+            demonstrating strong analytical and problem-solving capabilities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <div class="section-header">
+        <h2 class="section-title">Education</h2>
+        <span class="section-tag">Academic Background</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-card">
+        <p><strong>Bachelor of Technology in Computer Science</strong></p>
+        <p>Guru Jambheshwar University (GJU), Hisar</p>
+        <p>Graduated: 2022 · Percentage: 67%</p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-header">
+        <h2 class="section-title">Contact</h2>
+        <span class="section-tag">Let’s Work Together</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-lines">
+          <span>Based in Delhi, India · Open to remote opportunities</span>
+          <span>Email: <a href="mailto:siddharth22301@gmail.com">siddharth22301@gmail.com</a></span>
+          <span>Phone: <a href="tel:+917027368919">+91 7027368919</a></span>
+          <span>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/siddharth-mishra-71249b1b0" target="_blank">
+              siddharth-mishra-71249b1b0
+            </a>
+          </span>
+        </div>
+        <div class="contact-pill-row">
+          <span class="contact-pill">Remote AI Trainer Roles</span>
+          <span class="contact-pill">Data Annotation Projects</span>
+          <span class="contact-pill">Model Evaluation Work</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Siddharth Mishra · AI Trainer & Data Annotator
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
